@@ -22,16 +22,19 @@ class GameViewModel : ViewModel() {
         Log.d("GameFragment", "GameViewModel created!")
         getNextWord()
     }
-    override fun onCleared(){
+
+    override fun onCleared() {
         super.onCleared()
         Log.d("GameFragment", "GameViewModel is destroyed")
     }
-    private fun getNextWord(){
+
+    private fun getNextWord() {
         currentWord = allWordsList.random()
         val tempWord = currentWord.toCharArray()
         tempWord.shuffle()
         while (String(tempWord).equals(currentWord, false)) {
-            tempWord.shuffle()}
+            tempWord.shuffle()
+        }
         if (wordsList.contains(currentWord)) {
             getNextWord()
         } else {
@@ -40,10 +43,24 @@ class GameViewModel : ViewModel() {
             wordsList.add(currentWord)
         }
     }
+
+    private fun increaseScore() {
+        _score += SCORE_INCREASE
+    }
+
+    fun isUserWordCorrect(playerWord: String): Boolean {
+        if (playerWord.equals(currentWord, true)) {
+            increaseScore()
+            return true
+        }
+        return false
+    }
+
+
     /*
-* Returns true if the current word count is less than MAX_NO_OF_WORDS.
-* Updates the next word.
-*/
+    * Returns true if the current word count is less than MAX_NO_OF_WORDS.
+    * Updates the next word.
+    */
     fun nextWord(): Boolean {
         return if (currentWordCount < MAX_NO_OF_WORDS) {
             getNextWord()
