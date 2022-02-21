@@ -103,12 +103,17 @@ class GameFragment : Fragment() {
         }
     }
 
-    /*
-     * Skips the current word without changing the score.
-     * Increases the word count.
-     */
-    private fun onSkipWord() {
 
+    /*
+    * Skips the current word without changing the score
+    */
+    private fun onSkipWord() {
+        if (viewModel.nextWord()) {
+            setErrorTextField(false)
+            updateNextWordOnScreen()
+        } else {
+            showFinalScoreDialog()
+        }
     }
 
     /*
