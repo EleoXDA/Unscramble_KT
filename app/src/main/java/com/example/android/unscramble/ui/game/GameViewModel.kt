@@ -22,15 +22,6 @@ class GameViewModel : ViewModel() {
     private var wordsList: MutableList<String> = mutableListOf()
     private lateinit var currentWord: String
 
-    init {
-        Log.d("GameFragment", "GameViewModel created!")
-        getNextWord()
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("GameFragment", "GameViewModel is destroyed")
-    }
     fun reinitializeData() {
         _score.value = 0
         _currentWordCount.value = 0
